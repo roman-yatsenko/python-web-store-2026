@@ -45,9 +45,6 @@
                             {% endif %}
                             <div class="card-content">
                                 <p class="title is-5">{{ product.name }}</p>
-                                {% if product.description %}
-                                    <p class="content">{{ product.description|truncatewords:18 }}</p>
-                                {% endif %}
                                 <p class="has-text-weight-semibold">{{ product.price }} грн</p>
                             </div>
                         </a>
