@@ -1,0 +1,63 @@
+{% extends "shop/base.html" %}
+
+{% block title %}{{ category.name|default:"Каталог товарів" }} — Літера{% endblock %}
+
+{% block content %}
+    <div class="columns">
+        <aside class="column is-one-quarter" aria-label="Категорії товарів">
+            <nav class="menu">
+                <p class="menu-label">Категорії</p>
+                <ul class="menu-list">
+                    <li>
+                        <a href="{% url 'shop:poduct_list' %}"
+                           {% if not category %}class="is-active" aria-current="page"{% endif %}>
+                            Усі товари
+                        </a>
+                    </li>
+                    {% for item in categories %}
+                        <li>
+                            <a href="{{ item.get_absolute_url }}"
+                               {% if item == category %}class="is-active" aria-current="page"{% endif %}>
+                                {{ item.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="column" aria-labelledby="catalog-title">
+            <h1 class="title" id="catalog-title">
+                {{ category.name|default:"Усі товари" }}
+            </h1>
+
+            <div class="columns is-multiline">
+                {% for product in products %}
+                    <div class="column is-half-tablet is-one-third-desktop">
+                        <a class="card is-block has-text-dark" href="{{ product.get_absolute_url }}">
+                            {% if product.image %}
+                                <div class="card-image">
+                                    <figure class="image is-3by4">
+                                        <img src="{{ product.image.url }}"
+                                             alt="Обкладинка: {{ product.name }}">
+                                    </figure>
+                                </div>
+                            {% endif %}
+                            <div class="card-content">
+                                <p class="title is-5">{{ product.name }}</p>
+                                {% if product.description %}
+                                    <p class="content">{{ product.description|truncatewords:18 }}</p>
+                                {% endif %}
+                                <p class="has-text-weight-semibold">{{ product.price }} грн</p>
+                            </div>
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="column">
+                        <p class="notification is-light">У цій категорії поки немає товарів.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}
