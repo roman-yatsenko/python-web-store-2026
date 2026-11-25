@@ -12,8 +12,8 @@
                     <tr>
                         <th scope="col">Фото</th>
                         <th scope="col">Назва</th>
-                        <th scope="col">Кількість</th>
-                        <th scope="col">Видалити</th>
+                        <th scope="col" class="has-text-centered">Кількість</th>
+                        <th scope="col" class="has-text-centered">Видалити</th>
                         <th scope="col">Ціна за 1 од.</th>
                         <th scope="col">Сума</th>
                     </tr>
@@ -23,7 +23,7 @@
                         <tr>
                             <td>
                                 {% if item.product.image %}
-                                    <figure class="image is-48x64">
+                                    <figure class="image" style="width: 100px;">
                                         <img src="{{ item.product.image.url }}"
                                              alt="Обкладинка: {{ item.product.name }}">
                                     </figure>
@@ -36,13 +36,13 @@
                                     {{ item.product.name }}
                                 </a>
                             </td>
-                            <td>{{ item.quantity }}</td>
-                            <td>
+                            <td class="has-text-centered">{{ item.quantity }}</td>
+                            <td class="has-text-centered">
                                 <form action="{% url 'cart:cart_remove' item.product.id %}"
                                       method="post">
                                     {% csrf_token %}
                                     <button class="button is-small is-danger is-light" type="submit">
-                                        Видалити
+                                        ❌
                                     </button>
                                 </form>
                             </td>

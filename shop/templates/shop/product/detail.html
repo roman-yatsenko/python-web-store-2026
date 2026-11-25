@@ -30,6 +30,24 @@
 
             <p class="title is-4">{{ product.price }} грн</p>
             <p class="has-text-success">В наявності</p>
+
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label" for="{{ cart_product_form.quantity.id_for_label }}">
+                        Кількість
+                    </label>
+                    <div class="control">
+                        <div class="select">
+                            {{ cart_product_form.quantity }}
+                        </div>
+                    </div>
+                </div>
+                {{ cart_product_form.override }}
+                <button class="button is-primary" type="submit">
+                    Додати в кошик
+                </button>
+            </form>
         </section>
     </div>
 {% endblock %}
